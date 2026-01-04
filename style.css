@@ -38,6 +38,15 @@
     user-select: none;
 }
 
+#login select{
+    width: 100%;
+    padding: 15px 0px;
+     border-radius: 10px;
+    border: none;
+    outline: 2px solid  purple;
+    font-size: 28px;
+}
+
 
 
  h1,
@@ -70,7 +79,13 @@
     font-size: 22px;
     font-weight: 600;
  }
-
+ 
+ .qimg{
+  max-width: 300px;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 8px;
+}
  label{
     color: navy;
     font-size: 18px;
@@ -123,8 +138,18 @@
      text-align: right;
      font-weight: bold;
      color: navy;
-     font-size: 40px;
+     font-size: 30px;
  }
+
+.timer.danger{
+  color: red;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  50% { opacity: 0.4; }
+}
+
 
  table {
      width: 100%;
