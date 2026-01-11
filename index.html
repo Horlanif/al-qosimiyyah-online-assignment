@@ -901,39 +901,76 @@
 
 
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="jspdf.umd.min.js"></script>
+  <script src="jspdf.plugin.autotable.min.js"></script>
   <script>
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
+
+ // Get values from your page
       const name = document.getElementById('rName').innerText;
       const score = document.getElementById('rScore').innerText;
       const total = document.getElementById('rTotal').innerText;
       const lass = document.getElementById('rClass').innerText;
       const subject = document.getElementById('rSubject').innerText;
 
-
+ // Header
       doc.setFontSize(18);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(0, 51, 102);
       doc.text('YOUR RESULT', 80, 20, { align: "center" });
 
-      doc.setFontSize(12);
-      doc.text(`Candidate Name: ${name}`, 20, 40);
-      doc.text(`Candidate Class: ${lass}`, 20, 55);
-      doc.text(`Score: ${score} / ${total}`, 20, 65);
-      doc.text(`Subject: ${subject}`, 20, 75);
+ // Table data
+      const tableData = [
+        ["Candidate Name", name],
+        ["Class", lass],
+        ["Subject", subject],
+        ["Score", `${score} / ${total}`],
+        ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
+        ["Date", new Date().toLocaleString()]
+      ];
 
+      // Add table
+      doc.autoTable({
+        startY: 35,
+        head: [["Field", "Details"]],
+        body: tableData,
+        theme: "grid",
+        headStyles: { fillColor: [0, 51, 102], textColor: 255, fontStyle: "bold" },
+        styles: { fontSize: 12 }
+      });
+      // Footer
+      const finalY = doc.lastAutoTable.finalY || 80; // position footer after table
+      doc.setFontSize(10);
+      doc.text("Thank you for taking the Test.", 105, finalY + 15, { align: "center" });
+      doc.text("------------------------------------------", 105, finalY + 25, { align: "center" });
+      doc.text("Horlanif Tech 2026", 105, finalY + 35, { align: "center" });
 
+      // Save PDF
+      doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
 
-      doc.text('Thank you for taking Test.', 80, 85);
-
-      doc.text('------------------------------------------', 80, 105);
-      doc.text('Horlanif Tech  2026', 80, 115);
-
-      doc.save(`${name}_${subject}.pdf`);
     }
+
+    
+
+
+    //   doc.setFontSize(12);
+    //   doc.text(`Candidate Name: ${name}`, 20, 40);
+    //   doc.text(`Candidate Class: ${lass}`, 20, 55);
+    //   doc.text(`Score: ${score} / ${total}`, 20, 65);
+    //   doc.text(`Subject: ${subject}`, 20, 75);
+
+
+
+    //   doc.text('Thank you for taking Test.', 80, 85);
+
+    //   doc.text('------------------------------------------', 80, 105);
+    //   doc.text('Horlanif Tech  2026', 80, 115);
+
+    //   doc.save(`${name}_${subject}.pdf`);
+    // }
   </script>
 </body>
 
