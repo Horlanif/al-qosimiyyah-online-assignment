@@ -76,8 +76,46 @@
     </div>
   </div>
 
+  <img id="schoolLogo" src="logo.png" style="display:none;">
+
   <script>
     const physicsQuestions = [
+
+    {
+    question: "A solid that changes directly into gas upon heating is said to have undergone _________.",
+    options: ["Evaporation", "Vaporization", "Solidification", "Sublimation"],
+    answer: "Sublimation"
+  },
+  {
+    question: "Cooling of motor car engine uses ____________ application.",
+    options: ["Radiation", "Convection", "Conduction", "Evaporation"],
+    answer: "Convection"
+  },
+  {
+    question: "A bimetallic strip comprises of _________ and _________ metal.",
+    options: ["Iron & Lead", "Bronze & Brass", "Brass & Iron", "Lead & Brass"],
+    answer: "Brass & Iron"
+  },
+  {
+    question: "Which of the following surfaces will absorb radiant heat energy best?",
+    options: ["White", "Red", "Black", "Yellow"],
+    answer: "Black"
+  },
+  {
+    question: "A room is heated by means of a charcoal fire. Jamal standing away from the fire is warmed by",
+    options: ["Reflection", "Conduction", "Radiation", "Convection"],
+    answer: "Radiation"
+  },
+  {
+    question: "In which of the following is the expansion of solids a disadvantage?",
+    options: ["Fire alarms", "Thermostat", "Filling of tyres into rims", "Balance of wheel of a watch"],
+    answer: "Balance of wheel of a watch"
+  },
+  {
+    question: "_____________ is regarded as good emitter and poor absorber of heat.",
+    options: ["Black & Dull Colours", "White & Shiny Colours", "Multicolours", "Rainbow"],
+    answer: "White & Shiny Colours"
+  },
       {
         q: "The moon’s acceleration due to gravity is 1/6 of the earth’s value. The weight of a bowling ball on the moon would be",
         options: [
@@ -342,7 +380,42 @@
       { q: 'The instrument used to measure the internal diameter of a tube accurately is', options: ['Ruler', 'Micrometer screw gauge', 'Meter rule', 'Tape rule', 'Opisometer'], answer: 1 },
       { q: 'The smallest measurement on a standard metre rule is', options: ['0.5 m', '1 cm', '0.1 m', '0.1 cm', '0.1 mm'], answer: 1 },
       { q: 'Parallax error occurs when', options: ['Eye is not perpendicularly above scale', 'Instrument is adjusted', 'Scale expands', 'Value is correct', 'Value is zero'], answer: 0 },
-      { q: 'Weight varies from place to place because', options: ['Mass is constant', 'Gravity varies', 'Temperature varies', 'Density varies', 'Height changes'], answer: 1 }
+      { q: 'Weight varies from place to place because', options: ['Mass is constant', 'Gravity varies', 'Temperature varies', 'Density varies', 'Height changes'], answer: 1 },
+      {
+    question: "A solid that changes directly into gas upon heating is said to have undergone _________.",
+    options: ["Evaporation", "Vaporization", "Solidification", "Sublimation"],
+    answer: "Sublimation"
+  },
+  {
+    question: "Cooling of motor car engine uses ____________ application.",
+    options: ["Radiation", "Convection", "Conduction", "Evaporation"],
+    answer: "Convection"
+  },
+  {
+    question: "A bimetallic strip comprises of _________ and _________ metal.",
+    options: ["Iron & Lead", "Bronze & Brass", "Brass & Iron", "Lead & Brass"],
+    answer: "Brass & Iron"
+  },
+  {
+    question: "Which of the following surfaces will absorb radiant heat energy best?",
+    options: ["White", "Red", "Black", "Yellow"],
+    answer: "Black"
+  },
+  {
+    question: "A room is heated by means of a charcoal fire. Jamal standing away from the fire is warmed by",
+    options: ["Reflection", "Conduction", "Radiation", "Convection"],
+    answer: "Radiation"
+  },
+  {
+    question: "In which of the following is the expansion of solids a disadvantage?",
+    options: ["Fire alarms", "Thermostat", "Filling of tyres into rims", "Balance of wheel of a watch"],
+    answer: "Balance of wheel of a watch"
+  },
+  {
+    question: "_____________ is regarded as good emitter and poor absorber of heat.",
+    options: ["Black & Dull Colours", "White & Shiny Colours", "Multicolours", "Rainbow"],
+    answer: "White & Shiny Colours"
+  }
 
     ];
 
@@ -911,6 +984,8 @@
   <script src="jspdf.umd.min.js"></script>
   <script src="jspdf.plugin.autotable.min.js"></script>
   <script>
+
+
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
 
@@ -920,6 +995,13 @@
         format: "a5"
       });
 
+      const logoImg = document.getElementById("schoolLogo");
+
+      if (!logoImg || !logoImg.complete) {
+        alert("School logo not loaded yet. Please refresh the page.");
+        return;
+      }
+
 
       // Get values from your page
       const name = document.getElementById('rName').innerText;
@@ -928,81 +1010,78 @@
       const lass = document.getElementById('rClass').innerText;
       const subject = document.getElementById('rSubject').innerText;
 
-      // Load school logo
-      const logo = new Image();
-      logo.src = "logo.png";   // make sure logo.png is in same folder
-      logo.onload = function () {
-
-        /* ========= WATERMARK ========= */
-        doc.setGState(new doc.GState({ opacity: 0.12 }));
-        doc.addImage(logo, "PNG", 25, 70, 100, 100);
-        doc.setGState(new doc.GState({ opacity: 1 }));
-
-        /* ========= TOP LOGO ========= */
-        doc.addImage(logo, "PNG", 60, 5, 30, 30);
+      // Top logo
+      doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
 
 
-        // Header
-        doc.setFontSize(18);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 51, 102);
-        doc.text('YOUR RESULT', 80, 50, { align: "center" });
-
-        // Table data
-        const tableData = [
-          ["Candidate Name", name],
-          ["Class", lass],
-          ["Subject", subject],
-          ["Score", `${score} / ${total}`],
-          ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
-          ["Date", new Date().toLocaleString()]
-        ];
-
-        // Add table
-        doc.autoTable({
-
-          startY: 55,
-          head: [["Field", "Details"]],
-          body: tableData,
-          theme: "grid",
-
-          headStyles: {
-            fillColor: [0, 51, 102],
-            textColor: 255,
-            fontStyle: "bold"
-          },
-
-          styles: {
-            fontSize: 10,
-            cellPadding: 3,
-            fillColor: false,   // NO background
-            textColor: 0
-          },
-
-          bodyStyles: {
-            fillColor: false   // Transparent body
-          },
-
-          alternateRowStyles: {
-            fillColor: false   // No zebra striping
-          },
-
-          margin: { left: 10, right: 10 }
-        });
+      // * ========= WATERMARK ========= */
+      doc.setGState(new doc.GState({ opacity: 0.12 }));
+      doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
+      doc.setGState(new doc.GState({ opacity: 1 }));
 
 
-        // Footer
-        const finalY = doc.lastAutoTable.finalY || 80; // position footer after table
-        doc.setFontSize(10);
-        doc.text("Thank you for taking the Test.", 105, finalY + 15, { align: "center" });
-        doc.text("------------------------------------------", 105, finalY + 25, { align: "center" });
-        doc.text("Horlanif Tech 2026", 105, finalY + 35, { align: "center" });
+      // Header
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(0, 51, 102);
+      doc.text('YOUR RESULT', 80, 50, { align: "center" });
 
-        // Save PDF
-        doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
+      // Table data
+      const tableData = [
+        ["Candidate Name", name],
+        ["Class", lass],
+        ["Subject", subject],
+        ["Score", `${score} / ${total}`],
+        ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
+        ["Date", new Date().toLocaleString()]
+      ];
 
-      };
-    }
+      // Add table
+      doc.autoTable({
+
+        startY: 55,
+        head: [["Field", "Details"]],
+        body: tableData,
+        theme: "grid",
+
+        headStyles: {
+          fillColor: [0, 51, 102],
+          textColor: 255,
+          fontStyle: "bold"
+        },
+
+        styles: {
+          fontSize: 10,
+          cellPadding: 3,
+          fillColor: false,   // NO background
+          textColor: 0
+        },
+
+        bodyStyles: {
+          fillColor: false   // Transparent body
+        },
+
+        alternateRowStyles: {
+          fillColor: false   // No zebra striping
+        },
+
+        margin: { left: 10, right: 10 }
+      });
+
+
+      // Footer
+      const finalY = doc.lastAutoTable.finalY || 80; // position footer after table
+      doc.setFontSize(10);
+      doc.text("Thank you for taking the Test.", 105, finalY + 15, { align: "center" });
+      doc.text("------------------------------------------", 105, finalY + 25, { align: "center" });
+      doc.text("Horlanif Tech 2026", 105, finalY + 35, { align: "center" });
+
+      // Save PDF
+      doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
+
+    };
+
+
 
 
 
