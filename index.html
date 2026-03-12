@@ -82,6 +82,131 @@
 
   <script>
     const physicsQuestions = [
+       {
+         q: "The unit of specific heat capacity is:",
+         options: ["J/kg", "J/kg°C", "kg/J", "°C/kg"],
+         answer: 1
+        },
+        {
+          q: "The quantity of heat absorbed is calculated using:",
+          options: ["Q = mc", "Q = mct", "Q = mcΔT", "Q = mt"],
+          answer: 2
+        },
+        {
+          q: "If mass increases, heat required will:",
+          options: ["Decrease", "Remain constant", "Increase", "Become zero"],
+          answer: 2
+        },
+        {
+          q: "Water is used in car radiators because it has:",
+          options: ["Low density", "High boiling point", "High specific heat capacity", "Low melting point"],
+          answer: 2
+        },
+        {
+          q: "Which has the highest specific heat capacity?",
+          options: ["Copper", "Iron", "Aluminium", "Water"],
+          answer: 3
+        },
+        {
+          q: "Evaporation occurs:",
+          options: ["At boiling point only", "At all temperatures", "At 0°C", "Only in sunlight"],
+          answer: 1
+        },
+        {
+          q: "Boiling takes place:",
+          options: ["Only at surface", "Throughout the liquid", "Only in cold liquid", "Without heating"],
+          answer: 1
+        },
+        {
+          q: "During boiling, temperature:",
+          options: ["Increases", "Decreases", "Remains constant", "Fluctuates"],
+          answer: 2
+        },
+        {
+          q: "Evaporation causes cooling because:",
+          options: ["Cold molecules escape", "Fast molecules escape", "Water freezes", "Heat is destroyed"],
+          answer: 1
+        },
+        {
+          q: "Which increases evaporation?",
+          options: ["High humidity", "Low temperature", "Large surface area", "Closed container"],
+          answer: 2
+        },
+        {
+          q: "Water boils lower on mountains because:",
+          options: ["Gravity less", "Atmospheric pressure low", "Temperature high", "Air heavy"],
+          answer: 1
+        },
+        {
+          q: "Heat to change liquid to gas without temp change:",
+          options: ["Specific heat", "Sensible heat", "Latent heat", "Heat capacity"],
+          answer: 2
+        },
+        {
+          q: "A machine is used to:",
+          options: ["Create energy", "Destroy energy", "Make work easier", "Increase mass"],
+          answer: 2
+        },
+        {
+          q: "Mechanical Advantage (MA) is:",
+          options: ["Effort/Load", "Load/Effort", "Load×Effort", "Effort-Load"],
+          answer: 1
+        },
+        {
+          q: "Efficiency formula is:",
+          options: ["VR/MA ×100", "MA/VR ×100", "Load/Effort ×100", "Effort/Load ×100"],
+          answer: 1
+        },
+        {
+          q: "Efficiency of real machine is less than 100% because of:",
+          options: ["Friction", "Weight", "Speed", "Gravity"],
+          answer: 0
+        },
+        {
+          q: "Which is a simple machine?",
+          options: ["Engine", "Generator", "Lever", "Turbine"],
+          answer: 2
+        },
+        {
+          q: "Velocity Ratio is ratio of:",
+          options: ["Load/Effort", "Effort/Load", "Distance effort/Distance load", "Distance load/Distance effort"],
+          answer: 2
+        },
+        {
+          q: "If MA = 5 and VR = 5, efficiency is:",
+          options: ["100%", "50%", "25%", "5%"],
+          answer: 0
+        },
+        {
+          q: "Specific heat capacity is:",
+          options: [
+            "Heat to raise 1kg by 1°C",
+            "Heat to boil water",
+            "Heat to melt solid",
+            "Total heat energy"
+          ],
+          answer: 0
+        },
+        {
+          q: "A machine with 100% efficiency is called _________:",
+          options: [
+            "Deal machine",
+            "Excellent machine",
+            "ID machine",
+            "Ideal machine"
+          ],
+          answer: 3
+        },
+        {
+          q: "Axle can also be called ___________",
+          options: [
+           "Driving",
+            "Drive",
+            "Driver",
+          "Driven"
+          ],
+          answer: 2
+         },
 
       {
         q: "A solid that changes directly into gas upon heating is said to have undergone _________.",
@@ -422,7 +547,50 @@
     ];
 
     const mathsQuestions = [
+       {
+          q: 'To construct a 90° angle without a protractor, you can use:',
+          options: ['Compass and ruler', 'Ruler only', 'Divider only', 'None of the above'],
+          answer: 0
+        },
+        {
+          q: 'To construct a 30° angle using a compass, you first construct:',
+          options: ['60° angle', '90° angle', '45° angle', '120° angle'],
+          answer: 0
+        },
 
+        {
+          q: 'An angle bisector divides an angle into:',
+          options: ['Two equal angles', 'Two complementary angles', 'Two obtuse angles', 'Two reflex angles'],
+          answer: 0
+        },
+
+        {
+          q: 'The center of an inscribed circle is intersection of:',
+          options: ['Altitudes', 'Medians', 'Angle bisectors', 'Perpendicular bisectors'],
+          answer: 2
+        },
+        {
+          q: 'Which instrument is NOT normally required for geometric construction?',
+          options: ['Compass', 'Ruler', 'Calculator', 'Divider'],
+          answer: 2
+        },
+
+        {
+          q: 'Which tool is used to draw arcs in construction?',
+          options: ['Ruler', 'Compass', 'Protractor', 'Divider'],
+          answer: 1
+        },
+
+        {
+          q: 'The center of a circumcircle is the intersection of:',
+          options: ['Altitudes', 'Medians', 'Perpendicular bisectors', 'Angle bisectors'],
+          answer: 2
+        },
+        {
+          q: 'Which construction divides an angle into two equal parts?',
+          options: ['Perpendicular construction', 'Angle bisector', 'Parallel construction', 'Midpoint construction'],
+          answer: 1
+        },
 
       {
     q: "Simplify: 2/(x+y) − 1/(x−y)",
@@ -1050,7 +1218,7 @@
         questions = mathsQuestions;
       }
 
-      questions = questions.sort(() => 0.5 - Math.random()).slice(0, 30);
+      questions = questions.sort(() => 0.5 - Math.random()).slice(0, 100);
 
       document.getElementById('login').classList.add('hidden');
       document.getElementById('exam').classList.remove('hidden');
@@ -1058,7 +1226,7 @@
       // index = 0;
       // answers = [];
       // score = 0;
-      time = 30 * 60;
+      time = 120 * 60;
 
       renderPalette();
       loadQuestion();
@@ -1133,7 +1301,7 @@
       let s = time % 60;
 
       document.getElementById('timer').innerText =
-        `${m}:${s < 10 ? '0' + s : s}`;
+        `${m}mins:${s < 10 ? '0' + s : s}secs`;
 
       // Change to red when below 1 minute
       if (time <= 60) {
@@ -1263,24 +1431,6 @@
 
 
 
-
-
-
-    //   doc.setFontSize(12);
-    //   doc.text(`Candidate Name: ${name}`, 20, 40);
-    //   doc.text(`Candidate Class: ${lass}`, 20, 55);
-    //   doc.text(`Score: ${score} / ${total}`, 20, 65);
-    //   doc.text(`Subject: ${subject}`, 20, 75);
-
-
-
-    //   doc.text('Thank you for taking Test.', 80, 85);
-
-    //   doc.text('------------------------------------------', 80, 105);
-    //   doc.text('Horlanif Tech  2026', 80, 115);
-
-    //   doc.save(`${name}_${subject}.pdf`);
-    // }
   </script>
 
   <script>
