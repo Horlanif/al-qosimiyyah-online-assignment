@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<link rel="shortcut icon" href="favicon-32x32.png" type="png">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ONLINE ASSIGNMENT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<script src="script.js"></script>
+
+<body>
+  <div class="container">
+
+    <!-- LOGIN -->
+    <div id="login">
+      <h1>ONLINE ASSIGNMENT</h1>
+      <label>Student's Name</label>
+      <input type="text" id="name" required placeholder="Enter your Fullname"> <br>
+      <label>Student's Class</label>
+      <input type="text" id="lass" required placeholder="Enter your Class">
+      <label>Select Subject</label>
+      <select id="subject" required>
+        <option value="">-- Select Subject --</option>
+        <option value="ss1physics">Physics-SS1</option>
+        <option value="ss1maths">Mathematics-SS1</option>
+        <option value="ss2physics">Physics-SS2</option>
+        <option value="ss2maths">Mathematics-SS2</option>
+      </select>
+
+      <br><br>
+      <button onclick="startExam()">Start Exam</button>
+
+    </div>
+
+    <!-- EXAM -->
+    <div id="exam" class="hidden">
+      <div class="timer" id="timer"></div>
+      <h2 id="candidate"></h2>
+      <div id="questionBox"></div>
+      <div id="palette"
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,1fr));gap:6px;margin-top:15px"></div>
+      <div class="nav">
+        <button onclick="prevQ()">Previous</button>
+        <button onclick="nextQ()">Next</button>
+        <button onclick="submitExam()">Submit</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result" class="hidden">
+      <button onclick="downloadPDF()" style="margin-bottom:10px">Download Result (PDF)</button>
+      <h2>Your Result</h2>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Total</th>
+
+        </tr>
+        <tr>
+          <td id="rName"></td>
+          <td id="rClass"></td>
+          <td id="rSubject"></td>
+          <td id="rScore"></td>
+          <td id="rTotal"></td>
+
+        </tr>
+      </table>
+      <div style="margin-top: 10px;"><a href="horlanif tech CBT.apk"><button style="background-color: navy;">Download
+            App</button></a></div>
+    </div>
+    <div class="footer">
+      <p>Powered by Horlanif Tech &#169; 2026</p>
+    </div>
+  </div>
+
+  <img id="schoolLogo" src="logo.png" style="display:none;">
+
+  <script>
+    let questions = [];
+    let studentSubject = "";
+
+    let index = 0;
+    let score = 0;
+    let answers = [];
+    let time = 3200; // 60 minutes
+    let warned = false;
+    let timerInterval;
+
+    function startExam() {
+      const name = document.getElementById('name').value;
+      const lass = document.getElementById('lass').value;
+      const subject = document.getElementById('subject').value;
+
+      if (!name) return alert('Enter your name');
+      if (!lass) return alert('Enter your class');
+      if (!subject) return alert('Select a subject');
+
+      studentSubject = subject;
+
+      document.getElementById('candidate').innerText = name;
+      document.getElementById('lass').innerText = lass;
+      document.getElementById('subject').value = subject;
+
+      if (subject === "ss2physics") {
+        questions = ss2physicsQuestions;
+      } else if (subject === "ss2maths") {
+        questions = ss2mathsQuestions;
+      }
+      else if (subject === "ss1maths") {
+        questions = ss1mathsQuestions;
+      }
+      else if (subject === "ss1physics") {
+        questions = ss1physicsQuestions;
+      }
+
+
+      questions = questions.sort(() => 0.5 - Math.random()).slice(0, 100);
+
+      document.getElementById('login').classList.add('hidden');
+      document.getElementById('exam').classList.remove('hidden');
+
+      // index = 0;
+      // answers = [];
+      // score = 0;
+      time = 120 * 60;
+
+      renderPalette();
+      loadQuestion();
+
+      clearInterval(timerInterval);
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 500);
+    }
+
+
+    function loadQuestion() {
+      const q = questions[index];
+      let html = `<div class='question'>
+    <h3>Question ${index + 1} of ${questions.length}</h3>
+    <p>${q.q}</p>`;
+
+      if (q.img) {
+        html += `<img src="${q.img}" class="qimg">`;
+      }
+
+      html += `<div class='options'>`;
+
+      // OBJECTIVE QUESTIONS
+      if (!q.type || q.type === "objective") {
+        q.options.forEach((opt, i) => {
+          html += `
+        <label>
+          <input type='radio' name='opt'
+          ${answers[index] == i ? 'checked' : ''}
+          onchange='answers[${index}]=${i}; updatePalette(${index})'>
+          ${opt}
+        </label><br>`;
+        });
+      }
+
+      // INPUT QUESTIONS
+      else if (q.type === "input") {
+        html += `
+      <input type="text" placeholder="Type your answer "class= "question-input"
+      value="${answers[index] || ""}"
+      oninput="answers[${index}] = this.value; updatePalette(${index})">
+    `;
+      }
+
+      html += `</div></div>`;
+
+      document.getElementById('questionBox').innerHTML = html;
+      highlightCurrent();
+    }
+
+    function renderPalette() {
+      let p = '';
+      questions.forEach((_, i) => {
+        p += `<button id='box${i}' onclick='goTo(${i})' style='padding:8px;border-radius:4px;border:1px solid #999;background:#000052' class='box'>${i + 1}</button>`;
+      });
+      document.getElementById('palette').innerHTML = p;
+    }
+
+    function updatePalette(i) {
+      document.getElementById('box' + i).style.background = '#81c784';
+    }
+
+    function highlightCurrent() {
+      questions.forEach((_, i) => {
+        document.getElementById('box' + i).style.border = i === index ? '2px solid #1e88e5' : '1px solid #999';
+      });
+    }
+
+    function goTo(i) { index = i; loadQuestion(); }
+
+    function nextQ() { if (index < questions.length - 1) { index++; loadQuestion(); } }
+    function prevQ() { if (index > 0) { index--; loadQuestion(); } }
+
+    function submitExam() {
+
+      const confirmSubmit = confirm("Are you sure you want to submit?");
+
+      if (!confirmSubmit) {
+        return;
+      }
+
+      clearInterval(timer);
+      score = 0;
+      questions.forEach((q, i) => {
+        let userAnswer = answers[i];
+
+        // OBJECTIVE
+        if (!q.type || q.type === "objective") {
+          if (userAnswer === q.answer) score++;
+        }
+
+        // INPUT
+        else if (q.type === "input") {
+
+          if (!userAnswer) return;
+
+          let user = userAnswer.toString().toLowerCase().trim();
+
+          // if answer is array (multiple correct answers)
+          if (Array.isArray(q.answer)) {
+            if (q.answer.some(ans => user === ans.toLowerCase().trim())) {
+              score++;
+            }
+          }
+
+          // single answer
+          else {
+            let correct = q.answer.toString().toLowerCase().trim();
+
+            if (user === correct) {
+              score++;
+            }
+          }
+        }
+      });
+      document.getElementById('exam').classList.add('hidden');
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('rName').innerText = document.getElementById('candidate').innerText;
+      document.getElementById('rScore').innerText = score;
+      document.getElementById('rClass').innerText = document.getElementById(`lass`).innerText;
+      document.getElementById('rSubject').innerText = studentSubject;
+      document.getElementById('rTotal').innerText = questions.length;
+    }
+
+    function updateTimer() {
+      let m = Math.floor(time / 60);
+      let s = time % 60;
+
+      document.getElementById('timer').innerText =
+        `${m}mins:${s < 10 ? '0' + s : s}secs`;
+
+      // Change to red when below 1 minute
+      if (time <= 60) {
+        timer.classList.add("danger");
+        // Alert only once
+        if (!warned) {
+          alert("⚠️ 1 minute remaining!");
+          warned = true;
+        }
+
+      } else {
+        timer.classList.remove("danger");
+      }
+
+      if (time <= 0) {
+        clearInterval(timerInterval);
+        submitExam();
+        return;
+      }
+
+      time--;
+    }
+
+  </script>
+
+  <script src="jspdf.umd.min.js"></script>
+  <script src="jspdf.plugin.autotable.min.js"></script>
+
+
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a5"
+      });
+
+      const logoImg = document.getElementById("schoolLogo");
+
+      if (!logoImg || !logoImg.complete) {
+        alert("School logo not loaded yet. Please refresh the page.");
+        return;
+      }
+
+
+      // Get values from your page
+      const name = document.getElementById('rName').innerText;
+      const score = document.getElementById('rScore').innerText;
+      const total = document.getElementById('rTotal').innerText;
+      const lass = document.getElementById('rClass').innerText;
+      const subject = document.getElementById('rSubject').innerText;
+
+      // Top logo
+      doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
+
+
+      // * ========= WATERMARK ========= */
+      doc.setGState(new doc.GState({ opacity: 0.12 }));
+      doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
+      doc.setGState(new doc.GState({ opacity: 1 }));
+
+
+      // Header
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(0, 51, 102);
+      doc.text('YOUR RESULT', 80, 50, { align: "center" });
+
+      // Table data
+      const tableData = [
+        ["Candidate Name", name],
+        ["Class", lass],
+        ["Subject", subject],
+        ["Score", `${score} / ${total}`],
+        ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
+        ["Date", new Date().toLocaleString()]
+      ];
+
+      // Add table
+      doc.autoTable({
+
+        startY: 55,
+        head: [["Field", "Details"]],
+        body: tableData,
+        theme: "grid",
+
+        headStyles: {
+          fillColor: [0, 51, 102],
+          textColor: 255,
+          fontStyle: "bold"
+        },
+
+        styles: {
+          fontSize: 10,
+          cellPadding: 3,
+          fillColor: false,   // NO background
+          textColor: 0
+        },
+
+        bodyStyles: {
+          fillColor: false   // Transparent body
+        },
+
+        alternateRowStyles: {
+          fillColor: false   // No zebra striping
+        },
+
+        margin: { left: 10, right: 10 }
+      });
+
+
+      // Footer
+      const finalY = doc.lastAutoTable.finalY || 80; // position footer after table
+      doc.setFontSize(10);
+      doc.text("Thank you for taking the Test.", 105, finalY + 15, { align: "center" });
+      doc.text("------------------------------------------", 105, finalY + 25, { align: "center" });
+      doc.text("Horlanif Tech 2026", 105, finalY + 35, { align: "center" });
+
+      // Save PDF
+      doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
+
+    };
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const openBtn = document.getElementById("openCalc");
+      const closeBtn = document.getElementById("closeCalc");
+      const calcBox = document.getElementById("calcBox");
+
+      if (openBtn && closeBtn && calcBox) {
+        openBtn.onclick = function () {
+          calcBox.style.display = "block";
+        };
+
+        closeBtn.onclick = function () {
+          calcBox.style.display = "none";
+        };
+      }
+
+    });
+  </script>
+
+
+  <button id="openCalc" class="cal-btn">Calculator</button>
+  <div id="calcBox">
+    <div id="calcHeader">
+      <span>Calculator</span>
+      <button id="closeCalc">✖</button>
+    </div>
+
+    <iframe src="calculator.html"></iframe>
+  </div>
+</body>
+
+</html>
