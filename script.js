@@ -692,6 +692,17 @@ const ss1physicsQuestions = [
     ],
     answer: 0
   },
+  {
+    type: "objective",
+    q: "All have Volts as unit EXCEPT",
+    options: [
+      "Current",
+      "Voltage",
+      "Potential Difference",
+      "E.M.F"
+    ],
+    answer: 0
+  },
 
 
   // GERMAN
@@ -704,6 +715,11 @@ const ss1physicsQuestions = [
     type: "input",
     q: "The metal with the highest conductivity is ________",
     answer: ["Copper","Cu"]
+  },
+   {
+    type: "input",
+    q: "Apart from Ampere,electric current also has ________ as unit",
+    answer: ["C/s"]
   },
 
 
