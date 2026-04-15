@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Qosimiyyah </title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="file.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav>
+        <a href="index.html"><img src="QOSIMIYYAH LOGO-01.png"></a>
+        <ul>
+            <a href="index.html">
+                <li class="active">Home</li>
+            </a>
+            <a href="">
+                <li>About</li>
+            </a>
+            <a href="">
+                <li>Academics</li>
+            </a>
+            <a href="">
+                <li>Admissions</li>
+            </a>
+            <a href="">
+                <li>Portal</li>
+            </a>
+            <a href="file.html">
+                <li>E-library</li>
+            </a>
+        </ul>
+        <a href="exam.html" class="login">Login</a>
+        <i class="fa-solid fa-bars" id="menu-btn"></i>
+    </nav>
+
+
+    <div class="sidebar">
+        <i class="fa-solid fa-arrow-right-from-bracket" id="close-btn"></i>
+        <ul>
+            <a href="index.html">
+                <li class="active">Home</li>
+            </a>
+            <a href="">
+                <li>About</li>
+            </a>
+            <a href="">
+                <li>Academics</li>
+            </a>
+            <a href="">
+                <li>Admissions</li>
+            </a>
+            <a href="">
+                <li>Portal</li>
+            </a>
+            <a href="file.html">
+                <li>E-library</li>
+            </a>
+        </ul>
+        <a href="exam.html" class="login">Login</a>
+
+    </div>
+
+    <section class="file">
+        <h1>OUR PROGRAMS</h1>
+        <div class="file-01">
+            <div class="file-02">
+                <i class="fa-solid fa-people-group"></i>
+                <h2>MATHS GROUP</h2>
+                <hr>
+                <a href="https://drive.google.com/file/d/1jewwgguQ95r33XECdjUa4qG-L0pNXfS_/view?usp=sharing">Download<i class="fa-solid fa-download"></i></a>
+            </div>
+            <div class="file-02">
+                <i class="fa-solid fa-people-group"></i>
+                <h2>PHYSICS GROUP</h2>
+                <hr>
+                <a href="https://drive.google.com/file/d/1jewwgguQ95r33XECdjUa4qG-L0pNXfS_/view?usp=sharing">Download<i class="fa-solid fa-download"></i></a>
+            </div>
+            <div class="file-02">
+                <i class="fa-solid fa-book"></i>
+                <h2>MATHEMATICS</h2>
+                <hr>
+                <a href="">Download<i class="fa-solid fa-download"></i></a>
+            </div>
+            <div class="file-02">
+                <i class="fa-solid fa-book"></i>
+                <h2>PHYSICS</h2>
+                <hr>
+                <a href="">Download<i class="fa-solid fa-download"></i></a>
+            </div>
+            <div class="file-02">
+                <i class="fa-solid fa-book"></i>
+                <h2>PAST QUESTIONS</h2>
+                <hr>
+                <a href="https://drive.google.com/drive/folders/1A-G9BgKHokGDUBjEvnRY3HtVoMdlBirp?usp=sharing">Download<i
+                        class="fa-solid fa-download"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="emblem">
+            <div><img src="QOSIMIYYAH LOGO-01.png" alt=""></div>
+            <div>
+                <h2>Contact Us</h2>
+                <p><span><i class="fa-solid fa-location-crosshairs"></i></span>Kajoyo Community ,Kobongbogboe Area,
+                    <br>Osogbo,Osun State Nigeria
+                </p>
+                <p><span><i class="fa-solid fa-phone"></i></span>+234-8063331918</p>
+                <p><span><i class="fa-regular fa-envelope"></i></span>amos@gmail.com</p>
+            </div>
+        </div>
+        <hr>
+        <div class="copy">
+            <p>© Copyright 2026.All Rights Reserved by AMOS. <br>Designed
+                by Horlanif Tech-08139487564</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const closeBtn = document.getElementById("close-btn");
+        const sidebar = document.querySelector(".sidebar");
+
+        // Open sidebar
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.add("active");
+        });
+
+        // Close sidebar
+        closeBtn.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+        });
+    </script>
+</body>
+
+</html>
