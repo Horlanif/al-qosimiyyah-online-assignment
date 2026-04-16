@@ -673,6 +673,20 @@ const ss2physicsQuestions = [
 ];
 
 const ss2mathsQuestions = [
+  // OBJ
+   {
+    type: "objective",
+    q: "The bearing of P from Q is 063°, therefore, the bearing of Q from P is",
+    options: ["027°", " 063°", " 117°", " 243°"],
+    answer: 3
+  },
+   {
+    type: "objective",
+    q: "Which of the following I.(10, 24, 26), II.(12, 29, 31), III.(14, 49, 50), IV.(16, 30, 34)are pythagorean triples?",
+    options: [" I and II", "I Only", "III and I", "I and IV","II and III"],
+    answer: 3
+  },
+  
 
 
 ]
@@ -703,30 +717,127 @@ const ss1physicsQuestions = [
     ],
     answer: 0
   },
+  {
+    type: "objective",
+    q: "All affects resistance of a conductor EXCEPT _________",
+    options: [
+      "Temperature",
+      "Length of material",
+      "Pressure",
+      "Resistivity"
+    ],
+    answer: 2
+  },
+
 
 
   // GERMAN
   {
     type: "input",
     q: "The only metal in liquid state is ?",
-    answer: ["Mercury","Hg"]
+    answer: ["Mercury", "Hg"]
   },
   {
     type: "input",
     q: "The metal with the highest conductivity is ________",
-    answer: ["Copper","Cu"]
+    answer: ["Copper", "Cu"]
   },
-   {
+  {
     type: "input",
     q: "Apart from Ampere,electric current also has ________ as unit",
     answer: ["C/s"]
   },
-
-
+  {
+    type: "input",
+    q: "The constant from ohm's law is?",
+    answer: ["Resistance"]
+  },
+  {
+    type: "input",
+    q: "In parallel connection ______ is the same",
+    answer: ["Voltage"]
+  },
+  {
+    type: "input",
+    q: "Current(I) is the same in ___________ connection",
+    answer: ["Series"]
+  },
+  {
+    type: "input",
+    q: "Ω/m is the unit of ______",
+    answer: ["Resistivity"]
+  },
 
 ]
 
 const ss1mathsQuestions = [
+  {
+    type: "objective",
+    q: "Evaluate 3 524/0.05 , correct to 3 significant figures",
+    options: [
+      "705",
+      "70000",
+      "70480",
+      "70500"
+    ],
+    answer: 0
+  },
+ {
+    type: "objective",
+    q: "Which of the following is a factor of 15 + 7x – 2x2?",
+    options: [
+      "x - 3",
+      "x + 3",
+      "x - 5",
+      "5 + x"
+    ],
+    answer: 2
+  },
+  {
+    type: "objective",
+    q: "If a = 1 and b = 3, solve for x in the equation:a/a-x + b/x-b",
+    options: [
+      "3/4",
+      "2/3",
+      "3/2",
+      "4/3"
+    ],
+    answer: 2
+  },
+   {
+    type: "objective",
+    q: "The sum of the ages of Musa and Lawal is 28 years. After sharing a certain sum of money in the ratio of their ages, Musa receives $600 and Lawal gets $800. How old is Lawal?",
+    options: [
+      "20 years",
+      "16 years",
+      "14 years",
+      "12 years"
+    ],
+    answer: 1
+  },
+  {
+    type: "objective",
+    q: " A regular polygon has 30° as the size of each exterior angle. How many sides does the polygon have?",
+    options: [
+      "12",
+      "10",
+      "9",
+      "8"
+    ],
+    answer: 0
+  },
+  {
+    type: "objective",
+    q: "The sum of the interior angles of a polygon is 20 right-angles. How many sides does the polygon have?",
+    options: [
+      "10",
+      "12",
+      "20",
+      "40"
+    ],
+    answer: 1
+  },
+  
 
 
 ]
