@@ -513,6 +513,10 @@ footer {
         width: 100%;
     }
 
+    .profile{
+        width: 80%;
+    }
+
     footer {
         max-width: 100%;
         margin: 10px;

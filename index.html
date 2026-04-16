@@ -16,12 +16,24 @@
     <nav>
         <a href="index.html"><img src="QOSIMIYYAH LOGO-01.png"></a>
         <ul>
-           <a href="index.html"> <li class="active">Home</li></a>
-            <a href=""><li>About</li></a>
-           <a href=""><li>Academics</li></a> 
-           <a href=""><li>Admissions</li></a> 
-           <a href=""><li>Portal</li></a> 
-           <a href="file.html"><li>E-library</li></a> 
+            <a href="index.html">
+                <li class="active">Home</li>
+            </a>
+            <a href="">
+                <li>About</li>
+            </a>
+            <a href="">
+                <li>Academics</li>
+            </a>
+            <a href="">
+                <li>Admissions</li>
+            </a>
+            <a href="">
+                <li>Portal</li>
+            </a>
+            <a href="file.html">
+                <li>E-library</li>
+            </a>
         </ul>
         <a href="exam.html" class="login">Login</a>
         <i class="fa-solid fa-bars" id="menu-btn"></i>
@@ -55,12 +67,24 @@
     <div class="sidebar">
         <i class="fa-solid fa-arrow-right-from-bracket" id="close-btn"></i>
         <ul>
-           <a href="index.html"> <li class="active">Home</li></a>
-            <a href=""><li>About</li></a>
-           <a href=""><li>Academics</li></a> 
-           <a href=""><li>Admissions</li></a> 
-           <a href=""><li>Portal</li></a> 
-           <a href="file.html"><li>E-library</li></a> 
+            <a href="index.html">
+                <li class="active">Home</li>
+            </a>
+            <a href="">
+                <li>About</li>
+            </a>
+            <a href="">
+                <li>Academics</li>
+            </a>
+            <a href="">
+                <li>Admissions</li>
+            </a>
+            <a href="">
+                <li>Portal</li>
+            </a>
+            <a href="file.html">
+                <li>E-library</li>
+            </a>
         </ul>
         <a href="exam.html" class="login">Login</a>
 
@@ -307,7 +331,7 @@
                 post: "Health Prefect Boy",
                 img: "logo.png"
             },
-             {
+            {
                 name: "Ibrahim Sofiyyah",
                 class: "JSS3",
                 post: "Social Prefect",
@@ -337,7 +361,7 @@
                 post: "Chapel Prefect Boy",
                 img: "logo.png"
             },
-             {
+            {
                 name: "Abdulganiy Azeezat",
                 class: "SS1",
                 post: "Chapel Prefect Girl",
@@ -364,7 +388,7 @@
             const day = getDayNumber();
 
             const shuffled = [...prefects].sort((a, b) => {
-                return (a.name.length + day) - (b.name.length + day);
+                return Math.sin(day + a.name.length) - Math.sin(day + b.name.length);
             });
 
             return shuffled.slice(0, 2);
