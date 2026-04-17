@@ -385,15 +385,15 @@
 
         // SELECT PREFECTS FOR THE DAY
         function getDailyPrefects() {
-            const day = getDayNumber();
+            const today = new Date().toISOString().split('T')[0]; // e.g. "2026-04-17"
 
-            const shuffled = [...prefects].sort((a, b) => {
-                const hashA = (a.name + day).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-                const hashB = (b.name + day).split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-                return hashA - hashB;
-            });
+            // Convert date to a number (stable and changes daily)
+            const dayIndex = today.split('-').reduce((acc, val) => acc + Number(val), 0);
 
-            return shuffled.slice(0, 2);
+            const first = dayIndex % prefects.length;
+            const second = (first + 1) % prefects.length;
+
+            return [prefects[first], prefects[second]];
         }
 
         // DISPLAY PREFECTS
