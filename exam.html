@@ -19,7 +19,11 @@
       <label>Student's Name</label>
       <input type="text" id="name" required placeholder="Enter your Fullname"> <br>
       <label>Student's Class</label>
-      <input type="text" id="lass" required placeholder="Enter your Class">
+      <input type="text" list="sug" id="lass" required placeholder="Enter your Class">
+      <datalist id="sug">
+        <option value="SS1">SS1</option>
+        <option value="SS2">SS2</option>
+      </datalist>
       <label>Select Subject</label>
       <select id="subject" required>
         <option value="">-- Select Subject --</option>
@@ -70,8 +74,8 @@
 
         </tr>
       </table>
-      <div style="margin-top: 10px;"><a href="horlanif tech CBT.apk"><button style="background-color: navy;">Download
-            App</button></a></div>
+      <!-- <div style="margin-top: 10px;"><a href="horlanif tech CBT.apk"><button style="background-color: navy;">Download
+            App</button></a></div> -->
     </div>
     <div class="footer">
       <p>Powered by Horlanif Tech &#169; 2026</p>
@@ -79,6 +83,8 @@
   </div>
 
   <img id="schoolLogo" src="logo.png" style="display:none;">
+  <!-- <canvas id="barcodeCanvas" style="display:none;"></canvas> -->
+  <div id="qrcode" style="display:none;"></div>
 
   <script>
     let questions = [];
@@ -119,7 +125,7 @@
       }
 
 
-      questions = questions.sort(() => 0.5 - Math.random()).slice(0, 100);
+      questions = questions.sort(() => 0.5 - Math.random()).slice(0, 10);
 
       document.getElementById('login').classList.add('hidden');
       document.getElementById('exam').classList.remove('hidden');
@@ -127,14 +133,14 @@
       // index = 0;
       // answers = [];
       // score = 0;
-      time = 120 * 60;
+      time = 10 * 60;
 
       renderPalette();
       loadQuestion();
 
       clearInterval(timerInterval);
       updateTimer();
-      timerInterval = setInterval(updateTimer, 500);
+      timerInterval = setInterval(updateTimer, 1000);
     }
 
 
@@ -285,9 +291,10 @@
 
   <script src="jspdf.umd.min.js"></script>
   <script src="jspdf.plugin.autotable.min.js"></script>
-
+  <script src="qrcode.min.js"></script>
 
   <script>
+
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
 
@@ -304,104 +311,96 @@
         return;
       }
 
-
-      // Get values from your page
+      // Get values
       const name = document.getElementById('rName').innerText;
       const score = document.getElementById('rScore').innerText;
       const total = document.getElementById('rTotal').innerText;
       const lass = document.getElementById('rClass').innerText;
       const subject = document.getElementById('rSubject').innerText;
 
-      // Top logo
-      doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
+      // QR VALUE
+      const qrValue = `${name} | ${lass} | ${subject} | Score: ${score}/${total}`;
 
+      // GENERATE QR
+      const qrContainer = document.getElementById("qrcode");
+      qrContainer.innerHTML = "";
 
-      // * ========= WATERMARK ========= */
-      doc.setGState(new doc.GState({ opacity: 0.12 }));
-      doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
-      doc.setGState(new doc.GState({ opacity: 1 }));
-
-
-      // Header
-      doc.setFontSize(18);
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(0, 51, 102);
-      doc.text('YOUR RESULT', 80, 50, { align: "center" });
-
-      // Table data
-      const tableData = [
-        ["Candidate Name", name],
-        ["Class", lass],
-        ["Subject", subject],
-        ["Score", `${score} / ${total}`],
-        ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
-        ["Date", new Date().toLocaleString()]
-      ];
-
-      // Add table
-      doc.autoTable({
-
-        startY: 55,
-        head: [["Field", "Details"]],
-        body: tableData,
-        theme: "grid",
-
-        headStyles: {
-          fillColor: [0, 51, 102],
-          textColor: 255,
-          fontStyle: "bold"
-        },
-
-        styles: {
-          fontSize: 10,
-          cellPadding: 3,
-          fillColor: false,   // NO background
-          textColor: 0
-        },
-
-        bodyStyles: {
-          fillColor: false   // Transparent body
-        },
-
-        alternateRowStyles: {
-          fillColor: false   // No zebra striping
-        },
-
-        margin: { left: 10, right: 10 }
+      new QRCode(qrContainer, {
+        text: qrValue,
+        width: 150,
+        height: 150
       });
 
+      // ⏳ Wait for QR to render
+      setTimeout(() => {
 
-      // Footer
-      const finalY = doc.lastAutoTable.finalY || 80; // position footer after table
-      doc.setFontSize(10);
-      doc.text("Thank you for taking the Test.", 105, finalY + 15, { align: "center" });
-      doc.text("------------------------------------------", 105, finalY + 25, { align: "center" });
-      doc.text("Horlanif Tech 2026", 105, finalY + 35, { align: "center" });
+        const qrImg = qrContainer.querySelector("img").src;
 
-      // Save PDF
-      doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
+        // Logo
+        doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
 
-    };
-  </script>
+        // Watermark
+        doc.setGState(new doc.GState({ opacity: 0.12 }));
+        doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
+        doc.setGState(new doc.GState({ opacity: 1 }));
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
+        // Header
+        doc.setFontSize(18);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 51, 102);
+        doc.text('YOUR RESULT', 80, 50, { align: "center" });
 
-      const openBtn = document.getElementById("openCalc");
-      const closeBtn = document.getElementById("closeCalc");
-      const calcBox = document.getElementById("calcBox");
+        // Table
+        const tableData = [
+          ["Candidate Name", name],
+          ["Class", lass],
+          ["Subject", subject],
+          ["Score", `${score} / ${total}`],
+          ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
+          ["Date", new Date().toLocaleString()]
+        ];
 
-      if (openBtn && closeBtn && calcBox) {
-        openBtn.onclick = function () {
-          calcBox.style.display = "block";
-        };
+        doc.autoTable({
+          startY: 55,
+          head: [["Field", "Details"]],
+          body: tableData,
+          theme: "grid",
+          headStyles: {
+            fillColor: [0, 51, 102],
+            textColor: 255,
+            fontStyle: "bold"
+          },
+          styles: {
+            fontSize: 10,
+            cellPadding: 3,
+            fillColor: false,
+            textColor: 0
+          },
+          bodyStyles: { fillColor: false },
+          alternateRowStyles: { fillColor: false },
+          margin: { left: 10, right: 10 }
+        });
 
-        closeBtn.onclick = function () {
-          calcBox.style.display = "none";
-        };
-      }
+        // Footer position
+        const finalY = doc.lastAutoTable.finalY || 80;
 
-    });
+        // ✅ ADD QR CODE
+        doc.addImage(qrImg, "PNG", 60, finalY + 10, 40, 40);
+
+        // QR label
+        doc.setFontSize(8);
+        doc.text("Scan to verify", 70, finalY + 55, { align: "center" });
+
+        // Footer
+        doc.setFontSize(10);
+        doc.text("Horlanif Tech 2026", 75, finalY + 65, { align: "center" });
+
+        // ✅ SAVE ONLY ONCE (IMPORTANT)
+        doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
+
+      }, 500);
+    }
+
   </script>
 
 
