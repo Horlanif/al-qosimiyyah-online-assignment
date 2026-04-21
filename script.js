@@ -732,6 +732,24 @@ const ss1physicsQuestions = [
 
 
   // GERMAN
+   {
+     img: "images/img2.jpg",
+    type: "input",
+    q: "What is the the Effective resistance in the diagram",
+    answer: ["2.4 Ω", "2.4"]
+  },
+  {
+     img: "images/img2.jpg",
+    type: "input",
+    q: "Find the value of I₂",
+    answer: ["4A"]
+  },
+   {
+     img: "images/img2.jpg",
+    type: "input",
+    q: "Find the value of I₁",
+    answer: ["6A"]
+  },
   {
     type: "input",
     q: "The only metal in liquid state is ?",
@@ -767,6 +785,27 @@ const ss1physicsQuestions = [
     q: "Ω/m is the unit of ______",
     answer: ["Resistivity"]
   },
+
+   {
+     img: "images/img.jpg",
+    type: "input",
+    q: "Calculate the equivalent resistance for the circuit",
+    answer: ["10Ω", "10"]
+  },
+
+  {
+     img: "images/img.jpg",
+    type: "input",
+    q: " Find the potential difference across 4 Ω ",
+    answer: ["9.6V"]
+  },
+   {
+     img: "images/img.jpg",
+    type: "input",
+    q: " Find the potential difference across 6 Ω ",
+    answer: ["14.4V"]
+  },
+
 
 ]
 
