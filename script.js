@@ -394,22 +394,22 @@ const ss2physicsQuestions = [
   {
     type: "input",
     q: "Humidity is used to describe the amount of _________ in the atmosphere",
-    answer: "Water vapour"
+    answer: ["Water vapour"]
   },
   {
     type: "input",
     q: "The V.R of a machine is 5 and its efficiency is 75%.What effort would be needed to lift a load of 150N with the machine? ",
-    answer: "Driver"
+    answer: ["Driver"]
   },
   {
     type: "input",
     q: "Axle can also be called ___________",
-    answer: "40N"
+    answer:["40N"]
   },
   {
     type: "input",
     q: "A solid that changes directly into gas upon heating is said to have undergone _________.",
-    answer: "sublimation"
+    answer: ["sublimation"]
   },
   {
     type: "input",
@@ -425,7 +425,7 @@ const ss2physicsQuestions = [
   {
     type: "input",
     q: "The instrument used for measuring gas pressure is _________ ",
-    answer: "Manometer"
+    answer: ["Manometer"]
   },
   {
     type: "input",
@@ -486,189 +486,189 @@ const ss2physicsQuestions = [
   {
     type: "input",
     q: "The SI unit of frequency is __________.",
-    answer: "hertz"
+    answer: ["hertz"]
   },
   {
     type: "input",
     q: "The maximum displacement in a wave is called __________.",
-    answer: "amplitude"
+    answer: ["amplitude"]
   },
   {
     type: "input",
     q: "The time taken for one complete wave is called __________.",
-    answer: "period"
+    answer: ["period"]
   },
   {
     type: "input",
     q: "Wave speed is calculated as __________ × wavelength.",
-    answer: "frequency"
+    answer: ["frequency"]
   },
   {
     type: "input",
     q: "The highest point of a transverse wave is called __________.",
-    answer: "crest"
+    answer: ["crest"]
   },
 
   {
     type: "input",
     q: "The lowest point of a transverse wave is called __________.",
-    answer: "trough"
+    answer: ["trough"]
   },
   {
     type: "input",
     q: "Sound waves are __________ waves.",
-    answer: "longitudinal"
+    answer: ["longitudinal"]
   },
   {
     type: "input",
     q: "Light waves are __________ waves.",
-    answer: "transverse"
+    answer: ["transverse"]
   },
   {
     type: "input",
     q: "The bending of waves around obstacles is called __________.",
-    answer: "diffraction"
+    answer: ["diffraction"]
   },
   {
     type: "input",
     q: "The bouncing back of waves is called __________.",
-    answer: "reflection"
+    answer: ["reflection"]
   },
   {
     type: "input",
     q: "The change in direction of waves in different media is called __________.",
-    answer: "refraction"
+    answer: ["refraction"]
   },
   {
     type: "input",
     q: "The meeting of two waves is called __________.",
-    answer: "interference"
+    answer: ["interference"]
   },
   {
     type: "input",
     q: "When two waves combine to give a larger amplitude, it is __________ interference.",
-    answer: "constructive"
+    answer: ["constructive"]
   },
 
   {
     type: "input",
     q: "When two waves cancel each other, it is __________ interference.",
-    answer: "destructive"
+    answer: ["destructive"]
   },
   {
     type: "input",
     q: "The principle explaining interference is called __________ principle.",
-    answer: "superposition"
+    answer: ["superposition"]
   },
   {
     type: "input",
     q: "Waves that appear to stand still are called __________ waves.",
-    answer: "stationary"
+    answer: ["stationary"]
   },
   {
     type: "input",
     q: "Points with zero displacement are called __________.",
-    answer: "nodes"
+    answer: ["nodes"]
   },
   {
     type: "input",
     q: "Points with maximum displacement are called __________.",
-    answer: "antinodes"
+    answer: ["antinodes"]
   },
   {
     type: "input",
     q: "Frequency is equal to 1 divided by __________.",
-    answer: "period"
+    answer: ["period"]
   },
   {
     type: "input",
     q: "The unit of wavelength is __________.",
-    answer: "meter"
+    answer: ["meter", "m"]
   },
   {
     type: "input",
     q: "The speed of sound in air is approximately __________ m/s.",
-    answer: "340"
+    answer: ["340"]
   },
   {
     type: "input",
     q: "A reflected sound heard after a delay is called __________.",
-    answer: "echo"
+    answer: ["echo"]
   },
   {
     type: "input",
     q: "Multiple reflections of sound is called __________.",
-    answer: "reverberation"
+    answer: ["reverberation"]
   },
   {
     type: "input",
     q: "The energy of a wave is related to its __________.",
-    answer: "amplitude"
+    answer: ["amplitude"]
   },
   {
     type: "input",
     q: "The loudness of sound depends on __________.",
-    answer: "amplitude"
+    answer: ["amplitude"]
   },
   {
     type: "input",
     q: "Electromagnetic waves travel at __________ speed in vacuum.",
-    answer: "light"
+    answer: ["light"]
   },
   {
     type: "input",
     q: "Light is a __________ wave.",
-    answer: "transverse"
+    answer: ["transverse"]
   },
   {
     type: "input",
     q: "Waves transfer __________ but not matter.",
-    answer: "energy"
+    answer: ["energy"]
   },
   {
     type: "input",
     q: "In longitudinal waves, particles vibrate __________ to wave direction.",
-    answer: "parallel"
+    answer: ["parallel"]
   },
   {
     type: "input",
     q: "In transverse waves, particles vibrate __________ to wave direction.",
-    answer: "perpendicular"
+    answer: ["perpendicular"]
   },
   {
     type: "input",
     q: "The distance between two compressions is __________.",
-    answer: "wavelength"
+    answer: ["wavelength"]
   },
   {
     type: "input",
     q: "The time for one oscillation is called __________.",
-    answer: "period"
+    answer: ["period"]
   },
   {
     type: "input",
     q: "A wave with higher frequency has __________ wavelength.",
-    answer: "shorter"
+    answer: ["shorter"]
   },
   {
     type: "input",
     q: "Increasing amplitude increases __________ of sound.",
-    answer: "loudness"
+    answer: ["loudness"]
   },
   {
     type: "input",
     q: "The unit of wave speed is __________.",
-    answer: "m/s"
+    answer: ["m/s"]
   },
   {
     type: "input",
     q: "Water waves are __________ waves.",
-    answer: "mechanical"
+    answer: ["mechanical"]
   },
   {
     type: "input",
     q: "The crest-to-crest distance represents __________.",
-    answer: "wavelength"
+    answer: ["wavelength"]
   },
 ];
 

@@ -294,7 +294,6 @@
   <script src="qrcode.min.js"></script>
 
   <script>
-
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
 
@@ -306,8 +305,9 @@
 
       const logoImg = document.getElementById("schoolLogo");
 
-      if (!logoImg || !logoImg.complete) {
-        alert("School logo not loaded yet. Please refresh the page.");
+      // ✅ Strong logo check (prevents corrupt PNG)
+      if (!logoImg.complete || logoImg.naturalWidth === 0) {
+        alert("Logo not loaded yet. Please refresh.");
         return;
       }
 
@@ -318,10 +318,8 @@
       const lass = document.getElementById('rClass').innerText;
       const subject = document.getElementById('rSubject').innerText;
 
-      // QR VALUE
       const qrValue = `${name} | ${lass} | ${subject} | Score: ${score}/${total}`;
 
-      // GENERATE QR
       const qrContainer = document.getElementById("qrcode");
       qrContainer.innerHTML = "";
 
@@ -331,90 +329,92 @@
         height: 150
       });
 
-      // ⏳ Wait for QR to render
-      setTimeout(() => {
+      // ✅ WAIT PROPERLY (not guessing time)
+      let tries = 0;
+      const maxTries = 20;
 
-        let qrImgElement = qrContainer.querySelector("img");
+      const checker = setInterval(() => {
         let qrCanvas = qrContainer.querySelector("canvas");
+        let qrImgElement = qrContainer.querySelector("img");
 
-        let qrImg;
+        if (qrCanvas || qrImgElement) {
+          clearInterval(checker);
 
-        if (qrImgElement) {
-          qrImg = qrImgElement.src;
-        } else if (qrCanvas) {
-          qrImg = qrCanvas.toDataURL("image/png");
+          let qrImg;
+
+          try {
+            if (qrCanvas) {
+              qrImg = qrCanvas.toDataURL("image/png");
+            } else {
+              qrImg = qrImgElement.src;
+            }
+          } catch (e) {
+            alert("QR failed to render properly");
+            return;
+          }
+
+          // ===== YOUR ORIGINAL PDF CODE =====
+
+          doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
+
+          doc.setGState(new doc.GState({ opacity: 0.12 }));
+          doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
+          doc.setGState(new doc.GState({ opacity: 1 }));
+
+          doc.setFontSize(18);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(0, 51, 102);
+          doc.text('YOUR RESULT', 80, 50, { align: "center" });
+
+          const tableData = [
+            ["Candidate Name", name],
+            ["Class", lass],
+            ["Subject", subject],
+            ["Score", `${score} / ${total}`],
+            ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
+            ["Date", new Date().toLocaleString()]
+          ];
+
+          doc.autoTable({
+            startY: 55,
+            head: [["Field", "Details"]],
+            body: tableData,
+            theme: "grid"
+          });
+
+          const finalY = doc.lastAutoTable.finalY || 80;
+
+          // ✅ SAFE QR INSERT
+          doc.addImage(qrImg, "PNG", 60, finalY + 10, 40, 40);
+
+          doc.setFontSize(8);
+          doc.text("Scan to verify", 70, finalY + 55, { align: "center" });
+
+          doc.setFontSize(10);
+          doc.text("Horlanif Tech 2026", 75, finalY + 65, { align: "center" });
+
+          // ✅ MOBILE + DESKTOP SAFE DOWNLOAD
+          const blob = doc.output("blob");
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`;
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
         } else {
-          alert("QR code not generated. Try again.");
-          return;
+          tries++;
+          if (tries > maxTries) {
+            clearInterval(checker);
+            alert("QR generation timeout");
+          }
         }
-
-        // Logo
-        doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
-
-        // Watermark
-        doc.setGState(new doc.GState({ opacity: 0.12 }));
-        doc.addImage(logoImg, "PNG", 25, 70, 100, 100);
-        doc.setGState(new doc.GState({ opacity: 1 }));
-
-        // Header
-        doc.setFontSize(18);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 51, 102);
-        doc.text('YOUR RESULT', 80, 50, { align: "center" });
-
-        // Table
-        const tableData = [
-          ["Candidate Name", name],
-          ["Class", lass],
-          ["Subject", subject],
-          ["Score", `${score} / ${total}`],
-          ["Percentage", `${((score / total) * 100).toFixed(2)}%`],
-          ["Date", new Date().toLocaleString()]
-        ];
-
-        doc.autoTable({
-          startY: 55,
-          head: [["Field", "Details"]],
-          body: tableData,
-          theme: "grid",
-          headStyles: {
-            fillColor: [0, 51, 102],
-            textColor: 255,
-            fontStyle: "bold"
-          },
-          styles: {
-            fontSize: 10,
-            cellPadding: 3,
-            fillColor: false,
-            textColor: 0
-          },
-          bodyStyles: { fillColor: false },
-          alternateRowStyles: { fillColor: false },
-          margin: { left: 10, right: 10 }
-        });
-
-        // Footer position
-        const finalY = doc.lastAutoTable.finalY || 80;
-
-        // ✅ ADD QR CODE
-        doc.addImage(qrImg, "PNG", 60, finalY + 10, 40, 40);
-
-        // QR label
-        doc.setFontSize(8);
-        doc.text("Scan to verify", 70, finalY + 55, { align: "center" });
-
-        // Footer
-        doc.setFontSize(10);
-        doc.text("Horlanif Tech 2026", 75, finalY + 65, { align: "center" });
-
-        // ✅ SAVE ONLY ONCE (IMPORTANT)
-        doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
-
-      }, 1000);
+      }, 200);
     }
-
   </script>
-
 
   <button id="openCalc" class="cal-btn">Calculator</button>
   <div id="calcBox">
