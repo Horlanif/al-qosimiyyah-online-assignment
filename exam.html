@@ -334,7 +334,19 @@
       // ⏳ Wait for QR to render
       setTimeout(() => {
 
-        const qrImg = qrContainer.querySelector("img").src;
+        let qrImgElement = qrContainer.querySelector("img");
+        let qrCanvas = qrContainer.querySelector("canvas");
+
+        let qrImg;
+
+        if (qrImgElement) {
+          qrImg = qrImgElement.src;
+        } else if (qrCanvas) {
+          qrImg = qrCanvas.toDataURL("image/png");
+        } else {
+          alert("QR code not generated. Try again.");
+          return;
+        }
 
         // Logo
         doc.addImage(logoImg, "PNG", 60, 5, 30, 30);
@@ -398,7 +410,7 @@
         // ✅ SAVE ONLY ONCE (IMPORTANT)
         doc.save(`${name.replace(/\s+/g, "_")}_${subject.replace(/\s+/g, "_")}.pdf`);
 
-      }, 500);
+      }, 1000);
     }
 
   </script>
