@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <nav>
         <a href="index.html"><img src="QOSIMIYYAH LOGO-01.png"></a>
         <ul>
@@ -38,6 +39,35 @@
         <a href="exam.html" class="login">Login</a>
         <i class="fa-solid fa-bars" id="menu-btn"></i>
     </nav>
+    <!-- TIMER -->
+    <div class="hero">
+        <h1>Term Countdown</h1>
+        <div class="timebox">
+            <div class="time">
+                <h2 id="weeks">00</h2>
+                <p>Weeks</p>
+            </div>
+            <div class="timebox">
+                <div class="time">
+                    <h2 id="days">00</h2>
+                    <p>Days</p>
+                </div>
+                <div class="time">
+                    <h2 id="hours">00</h2>
+                    <p>Hours</p>
+                </div>
+                <div class="time">
+                    <h2 id="minutes">00</h2>
+                    <p>Minutes</p>
+                </div>
+                <div class="time">
+                    <h2 id="seconds">00</h2>
+                    <p>Seconds</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="slider">
         <div class="slides">
 
@@ -522,6 +552,50 @@
         closeBtn.addEventListener("click", () => {
             sidebar.classList.remove("active");
         });
+    </script>
+
+    <script>
+        const Weeks = document.getElementById('weeks');
+        const Days = document.getElementById('days');
+        const Hours = document.getElementById('hours');
+        const Minutes = document.getElementById('minutes');
+        const Seconds = document.getElementById('seconds');
+
+        const targetDate = new Date("July 24 2026 00:00:00").getTime();
+
+        function timer() {
+            const currentDate = new Date().getTime();
+            const distance = targetDate - currentDate;
+
+            const weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor(distance / 1000 / 60 / 60 / 24);
+            const hours = Math.floor(distance / 1000 / 60 / 60) % 24;
+            const minutes = Math.floor(distance / 1000 / 60) % 60;
+            const seconds = Math.floor(distance / 1000) % 60;
+
+
+            function format(val) {
+                return val < 10 ? "0" + val : val;
+            }
+
+            Weeks.innerHTML = format(weeks);
+            Days.innerHTML = format(days);
+            Hours.innerHTML = format(hours);
+            Minutes.innerHTML = format(minutes);
+            Seconds.innerHTML = format(seconds);
+
+            if (distance < 0) {
+                Weeks.innerHTML = "00";
+                Days.innerHTML = "00";
+                Hours.innerHTML = "00";
+                Minutes.innerHTML = "00";
+                Seconds.innerHTML = "00";
+            }
+
+
+        }
+
+        setInterval(timer, 1000);
     </script>
 </body>
 
