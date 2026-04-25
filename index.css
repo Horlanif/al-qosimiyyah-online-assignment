@@ -491,7 +491,7 @@ footer {
 
     }
 
-    .hero{
+    .hero {
         max-height: 500px;
     }
 
@@ -503,7 +503,7 @@ footer {
         font-size: 1.8rem;
     }
 
-    .time p{
+    .time p {
         font-size: 10px;
     }
 
@@ -608,7 +608,7 @@ footer {
 
     }
 
-     .hero h1 {
+    .hero h1 {
         font: size 1.5rem;
     }
 
@@ -616,9 +616,11 @@ footer {
         font-size: 1.8rem;
     }
 
-    .time p{
+    .time p {
         font-size: 10px;
     }
 
-
+    .sidebar {
+        height: 600px;
+    }
 }
